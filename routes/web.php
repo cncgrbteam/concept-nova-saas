@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     return view('dashboard');
+// });
+
+Route::middleware(['checkToken'])->get('/', function () {
     return view('dashboard');
 });
+
+Route::get('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
+Route::post('/postLogin', [AuthController::class, 'postLogin']);
