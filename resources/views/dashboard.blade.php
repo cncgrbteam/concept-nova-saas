@@ -12,13 +12,13 @@
     <a href="/logout">Logout</a>
     <div class="flex my-10 p-5 w-full md:w-1/2">
         <div class="w-1/2 p-2 flex justify-center items-center">
-            <div class="flex justify-center items-center w-44 h-44 border border-blue-800 hover:shadow-md">
+            <div class="flex justify-center items-center bg-white w-44 h-44 border border-blue-800 hover:shadow-md">
                 <a href="#">ProDrive</a>
             </div>
         </div>
         <div class="w-1/2 p-2 flex justify-center items-center">
-            <div class="flex justify-center items-center w-44 h-44 border border-blue-800 hover:shadow-md">
-                <a href="https://saas-staging.concept-nova.com/saas-frontend/fma">FMA</a>
+            <div class="flex justify-center items-center bg-white w-44 h-44 border border-blue-800 hover:shadow-md">
+                <a href="https://solutions.concept-nova.com/saas-frontend/fma">FMA</a>
             </div>
         </div>
     </div>
