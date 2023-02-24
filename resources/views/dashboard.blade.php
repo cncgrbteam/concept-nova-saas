@@ -18,7 +18,7 @@
         </div>
         <div class="w-1/2 p-2 flex justify-center items-center">
             <div class="flex justify-center items-center bg-white w-44 h-44 border border-blue-800 hover:shadow-md">
-                <a href="https://solutions.concept-nova.com/fma">FMA</a>
+                <a href="https://fma.concept-nova.com/fma">FMA</a>
             </div>
         </div>
     </div>
