@@ -23,5 +23,5 @@ Route::middleware(['checkToken'])->get('/', function () {
 });
 
 Route::get('/login', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('performLogin');
