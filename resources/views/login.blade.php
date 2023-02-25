@@ -7,7 +7,7 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="/postLogin" method="POST">
+    <form action="{{ route('performLogin') }}" method="POST">
         @csrf
         <input type="text" name="email" placeholder="Email">
         <input type="password" name="password" placeholder="Password">
