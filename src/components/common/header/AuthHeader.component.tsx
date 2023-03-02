@@ -24,7 +24,7 @@ export const AuthHeader = () => {
   const handleLogout = () => {
     logout();
     // redirect to login page
-    router.push("/");
+    // router.push("/");
   };
 
   const {

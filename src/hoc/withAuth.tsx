@@ -25,9 +25,11 @@ export const withAuth = (WrappedComponent: NextPage) => {
       // delete cookie, if there's any
       deleteCookie("auth-token", context.req);
 
-      // redirect to login page
-      context.res.writeHead(302, { Location: loginPage });
-      context.res.end();
+      if (context.res) {
+        // redirect to login page
+        context.res.writeHead(302, { Location: loginPage });
+        context.res.end();
+      }
     }
 
     // if there's token in redis server, save it to cookie

@@ -1,5 +1,4 @@
 import { Button, Layout, LoginForm } from "@components";
-import { getCookie } from "@utils";
 
 const AuthPage = () => {
   return (
@@ -23,22 +22,5 @@ const AuthPage = () => {
     </Layout>
   );
 };
-
-export async function getServerSideProps(context: any) {
-  const authToken = getCookie("auth-token", context.req);
-
-  if (authToken) {
-    return {
-      redirect: {
-        destination: "/dashboard",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}
 
 export default AuthPage;
