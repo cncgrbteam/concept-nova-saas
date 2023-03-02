@@ -17,12 +17,11 @@ export const withAuth = (WrappedComponent: NextPage) => {
   AuthWrapper.getInitialProps = async (context: any) => {
     const authSession = getCookie("auth-token", context.req);
 
-    // make request to redis server to check if the token is valid
-    // if not, redirect to login page
+    // make request to redis server to get the token
     const tokenFromRedis = await redisApi.getAuthToken();
 
     // if there's no token in redis server, redirect to login page
-    if (!tokenFromRedis || tokenFromRedis === authSession) {
+    if (!tokenFromRedis) {
       // delete cookie, if there's any
       deleteCookie("auth-token", context.req);
 
@@ -34,6 +33,11 @@ export const withAuth = (WrappedComponent: NextPage) => {
     // if there's token in redis server, save it to cookie
     // so that the user can access the page without login again
     if (tokenFromRedis && !authSession) {
+      setCookie("auth-token", tokenFromRedis, context.req);
+    }
+
+    // if there's token in redis server, but it doesn't match with the token in cookie, update the cookie
+    if (tokenFromRedis && authSession && tokenFromRedis !== authSession) {
       setCookie("auth-token", tokenFromRedis, context.req);
     }
 
