@@ -1,4 +1,4 @@
-import { createRedisInstance } from "@config/redis";
+import { createRedisInstance } from "@utils/helper/server";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

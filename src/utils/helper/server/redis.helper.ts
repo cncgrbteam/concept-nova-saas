@@ -1,11 +1,10 @@
-// Server side config for redis
-// NB:: Do not export in config/index.ts, to avoid on the client side.
 import { Redis, RedisOptions } from "ioredis";
 
 function getRedisConfiguration(): {
   port: number | undefined;
   host: string | undefined;
   password: string | undefined;
+  prefix: string | undefined;
 } {
   return {
     host: process.env.REDIS_HOST,
@@ -13,6 +12,7 @@ function getRedisConfiguration(): {
     port: process.env.REDIS_PORT
       ? parseInt(process.env.REDIS_PORT, 10)
       : undefined,
+    prefix: `${process.env.REDIS_KEY_PREFIX}`,
   };
 }
 
@@ -24,7 +24,7 @@ export function createRedisInstance(config = getRedisConfiguration()) {
       showFriendlyErrorStack: true,
       enableAutoPipelining: true,
       maxRetriesPerRequest: 0,
-      keyPrefix: process.env.REDIS_KEY_PREFIX,
+      keyPrefix: config.prefix,
       retryStrategy: (times: number) => {
         if (times > 3) {
           throw new Error(`[Redis] Could not connect after ${times} attempts`);
