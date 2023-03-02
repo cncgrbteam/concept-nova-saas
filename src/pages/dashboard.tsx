@@ -80,7 +80,7 @@ const Dashboard = () => {
         <div className="my-10">
           <h2 className="text-sm font-semibold mb-10"> Applications</h2>
           <ul className="bg-primary-100 rounded-md grid grid-cols-1 divide-y divide-slate-200">
-            {isProjectsLoading &&
+            {(isProjectsLoading || !isProjectsFetchSuccess) &&
               [...Array(2)].map((_item, index: number) => (
                 <li key={index}>
                   <div className="block flex flex-col lg:flex-row items-start gap-x-10 gap-y-2 p-6">

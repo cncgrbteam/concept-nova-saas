@@ -19,6 +19,6 @@
       "@*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/config/redis.ts,
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/config/redis.ts"],
   "exclude": ["node_modules"]
 }
