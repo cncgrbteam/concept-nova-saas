@@ -8,6 +8,7 @@ export const Layout = ({
   title,
   description,
   pxPadding = true,
+  basicHeader = false,
 }: LayoutProps) => {
   const [isLogged, setIsLogged] = useState<boolean | null>(null);
   const { isLogged: initialIsLogged } = useAuth();
@@ -20,9 +21,9 @@ export const Layout = ({
       <Meta title={title} description={description} />
       <div>
         <header className="bg-white px-wrapper md:px-wrapper-md shadow h-[8vh] flex items-center">
-          {isLogged && <AuthHeader />}
+          {isLogged && !basicHeader && <AuthHeader />}
 
-          {!isLogged && isLogged !== null && <Header />}
+          {(!isLogged && isLogged !== null) || basicHeader ? <Header /> : null}
         </header>
 
         <GlobalAlert />

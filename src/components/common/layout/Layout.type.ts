@@ -3,4 +3,5 @@ export type LayoutProps = {
   description?: string;
   children: React.ReactNode;
   pxPadding?: boolean;
+  basicHeader?: boolean;
 };

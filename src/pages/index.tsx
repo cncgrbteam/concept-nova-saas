@@ -2,7 +2,7 @@ import { Button, Layout, LoginForm } from "@components";
 
 const AuthPage = () => {
   return (
-    <Layout>
+    <Layout basicHeader>
       <section className="px-wrapper xl:px-wrapper-xl min-h-[84vh] flex items-center">
         <div className="w-full md:w-3/4 lg:w-1/2 xl:w-4/12 mx-auto xl:px-4">
           <div className="text-2xl font-semibold text-center">Welcome</div>

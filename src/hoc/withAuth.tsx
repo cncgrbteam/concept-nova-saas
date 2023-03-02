@@ -27,6 +27,7 @@ export const withAuth = (WrappedComponent: NextPage) => {
 
       if (context.res) {
         // redirect to login page
+
         context.res.writeHead(302, { Location: loginPage });
         context.res.end();
       }
