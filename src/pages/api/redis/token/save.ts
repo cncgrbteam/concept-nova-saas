@@ -1,4 +1,7 @@
-import { createRedisInstance } from "@utils/helper/server";
+import {
+  createRedisInstance,
+  generateAuthTokenKey,
+} from "@utils/helper/server";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,12 +10,13 @@ export default async function handler(
 ) {
   let redis = createRedisInstance();
 
-  //   get key and value from the request body
-  const { key, value } = req.body;
+  //   get key and token from the request body
+  const key = generateAuthTokenKey(req);
+  const { token } = req.body;
 
   const MAX_AGE = process.env.NEXT_PUBLIC_AUTH_EXPIRY ?? 60_000 * 60; // 1 hour
   const EXPIRY_TYPE = `EX`; // seconds
-  const result = await redis.set(key, value, EXPIRY_TYPE, MAX_AGE);
+  const result = await redis.set(key, token, EXPIRY_TYPE, MAX_AGE);
 
   if (result === "OK") {
     return res

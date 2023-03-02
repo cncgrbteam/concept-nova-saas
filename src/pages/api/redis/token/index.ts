@@ -1,4 +1,7 @@
-import { createRedisInstance } from "@utils/helper/server";
+import {
+  createRedisInstance,
+  generateAuthTokenKey,
+} from "@utils/helper/server";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,9 +10,7 @@ export default async function handler(
 ) {
   let redis = createRedisInstance();
 
-  // get the key  from the request
-  const { key } = req.query;
-
+  const key = generateAuthTokenKey(req);
   let cache = await redis.get(key! as string);
 
   if (cache) {
