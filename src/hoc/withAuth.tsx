@@ -1,7 +1,7 @@
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import React from "react";
-import { getCookie } from "@utils";
+import { deleteCookie, getCookie, setCookie } from "@utils";
+import { redisApi } from "@services";
 
 type Props = {
   authSession: string;
@@ -11,20 +11,30 @@ const loginPage = "/";
 
 export const withAuth = (WrappedComponent: NextPage) => {
   const AuthWrapper: NextPage<Props> = ({ authSession, ...props }: Props) => {
-    const router = useRouter();
-
-    if (!authSession) {
-      router.push(loginPage);
-      return null;
-    }
     return <WrappedComponent {...props} />;
   };
 
   AuthWrapper.getInitialProps = async (context: any) => {
     const authSession = getCookie("auth-token", context.req);
-    if (!authSession) {
+
+    // make request to redis server to check if the token is valid
+    // if not, redirect to login page
+    const tokenFromRedis = await redisApi.getAuthToken();
+
+    // if there's no token in redis server, redirect to login page
+    if (!tokenFromRedis || tokenFromRedis === authSession) {
+      // delete cookie, if there's any
+      deleteCookie("auth-token", context.req);
+
+      // redirect to login page
       context.res.writeHead(302, { Location: loginPage });
       context.res.end();
+    }
+
+    // if there's token in redis server, save it to cookie
+    // so that the user can access the page without login again
+    if (tokenFromRedis && !authSession) {
+      setCookie("auth-token", tokenFromRedis, context.req);
     }
 
     const componentProps =

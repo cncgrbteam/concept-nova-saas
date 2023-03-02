@@ -16,7 +16,6 @@ const apiResource = (
       Accept: "application/json",
       "Content-Type": contentType,
       "Access-Control-Allow-Methods": "*",
-      "Access-Control-Allow-Origin": baseURL,
     },
   });
 
@@ -129,5 +128,8 @@ const apiResource = (
 };
 
 export const apiService = apiResource();
-export const internalApiService = apiResource("application/json", "/api");
+export const internalApiService = apiResource(
+  "application/json",
+  "http://localhost:3000/api"
+);
 export const formDataApiService = apiResource("multipart/form-data");
