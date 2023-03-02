@@ -130,6 +130,6 @@ const apiResource = (
 export const apiService = apiResource();
 export const internalApiService = apiResource(
   "application/json",
-  "http://localhost:3000/api"
+  process.env.NEXT_PUBLIC_APP_URL
 );
 export const formDataApiService = apiResource("multipart/form-data");
