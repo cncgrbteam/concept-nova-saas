@@ -39,9 +39,9 @@ export const AuthProvider = ({ children }: AuthProviderProps): ReactElement => {
     authContextDefaultValues.isLogged
   );
 
-  const { mutate: mutateToRedisServer } = useMutation({
+  const { mutate: mutateTokenToRedisServer } = useMutation({
     mutationFn: (payload: IRedisData) => {
-      return redisApi.save(payload);
+      return redisApi.saveToken(payload);
     },
     onSuccess: async (data) => {
       // @ts-ignore
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): ReactElement => {
 
   const { mutate: redisLogoutMutation } = useMutation({
     mutationFn: () => {
-      return redisApi.delete("auth-token");
+      return redisApi.deleteToken();
     },
     onSuccess: async (data) => {
       // @ts-ignore
@@ -82,9 +82,8 @@ export const AuthProvider = ({ children }: AuthProviderProps): ReactElement => {
 
   const login = (token: string) => {
     // make api call to  save token to redis
-    mutateToRedisServer({
-      key: "auth-token",
-      value: token,
+    mutateTokenToRedisServer({
+      token,
     });
   };
 

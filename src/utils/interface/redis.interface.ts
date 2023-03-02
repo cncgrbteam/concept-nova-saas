@@ -1,6 +1,5 @@
 export interface IRedisData {
-  key: string;
-  value: string;
+  token: string;
 }
 
 export interface IRedisResponse {
