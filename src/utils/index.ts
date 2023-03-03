@@ -1,2 +1,2 @@
-export * from "./interface";
-export * from "./helper";
+export * from "./interfaces";
+export * from "./helpers";

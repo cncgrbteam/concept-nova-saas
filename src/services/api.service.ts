@@ -7,7 +7,8 @@ import axios, {
 
 const apiResource = (
   contentType = "application/json",
-  baseURL = process.env.NEXT_PUBLIC_API_BASE_URL!
+  baseURL = process.env.NEXT_PUBLIC_API_BASE_URL!,
+  userAgent?: string
 ) => {
   const service = axios.create({
     baseURL: `${baseURL}`,
@@ -20,6 +21,11 @@ const apiResource = (
   });
 
   service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    // add User-Agent header if userAgent is defined
+    if (userAgent) {
+      config.headers["User-Agent"] = userAgent;
+    }
+
     // get token from cookie
     const token = getCookie("auth-token");
 
@@ -128,8 +134,10 @@ const apiResource = (
 };
 
 export const apiService = apiResource();
-export const internalApiService = apiResource(
-  "application/json",
-  `${process.env.NEXT_PUBLIC_APP_URL}/api`
-);
+export const internalApiService = (userAgent?: string) =>
+  apiResource(
+    "application/json",
+    `${process.env.NEXT_PUBLIC_APP_URL}/api`,
+    userAgent
+  );
 export const formDataApiService = apiResource("multipart/form-data");

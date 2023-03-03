@@ -1,7 +1,7 @@
 import {
   createRedisInstance,
   generateAuthTokenKey,
-} from "@utils/helper/server";
+} from "@utils/helpers/server";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

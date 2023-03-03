@@ -17,19 +17,35 @@ export const withAuth = (WrappedComponent: NextPage) => {
   AuthWrapper.getInitialProps = async (context: any) => {
     const authSession = getCookie("auth-token", context.req);
 
+    let userAgent;
+
+    if (context.req) {
+      userAgent = context.req.headers["user-agent"];
+    }
+
+    if (typeof window !== "undefined") {
+      userAgent = window.navigator.userAgent;
+    }
+
     // make request to redis server to get the token
-    const tokenFromRedis = await redisApi.getAuthToken();
+    const tokenFromRedis = await redisApi.getAuthToken(userAgent);
 
     // if there's no token in redis server, redirect to login page
     if (!tokenFromRedis) {
       // delete cookie, if there's any
       deleteCookie("auth-token", context.req);
 
+      // redirect to login page
       if (context.res) {
-        // redirect to login page
-
+        // server side
         context.res.writeHead(302, { Location: loginPage });
+
         context.res.end();
+      }
+
+      if (typeof window !== "undefined") {
+        // client side
+        window.location.href = loginPage;
       }
     }
 
