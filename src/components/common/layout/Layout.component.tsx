@@ -1,4 +1,5 @@
 import { Meta, Header, Footer, GlobalAlert, AuthHeader } from "@components";
+import { ErrorBoundary } from "@config";
 import { useAuth } from "@context";
 import { useEffect, useState } from "react";
 import { LayoutProps } from "./Layout.type";
@@ -17,7 +18,7 @@ export const Layout = ({
     setIsLogged(initialIsLogged);
   }, [initialIsLogged]);
   return (
-    <>
+    <ErrorBoundary>
       <Meta title={title} description={description} />
       <div>
         <header className="bg-white px-wrapper md:px-wrapper-md shadow h-[8vh] flex items-center">
@@ -30,6 +31,6 @@ export const Layout = ({
         <main className={`${pxPadding && "xl:px-[10rem]"}`}>{children}</main>
         <Footer />
       </div>
-    </>
+    </ErrorBoundary>
   );
 };
