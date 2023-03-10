@@ -8,11 +8,10 @@ const Error404 = () => {
       <section className="py-12 xl:py-20 px-wrapper md:px-wrapper-md xl:px-[10rem] min-h-[84vh] flex flex-col justify-center items-center gap-6">
         <Image
           src={Error404Image}
-          alt="404"
-          className="mx-auto w-72"
+          alt="Page not Found"
+          width={500}
+          height={500}
           placeholder="blur"
-          //   width={300}
-          //   height={300}
         />
         <h1 className="font-bold text-2xl">Page not Found</h1>
         <p className="text-sm font-light text-center">
